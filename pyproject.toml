@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tia-hmi-mcp"
+version = "0.1.0"
+description = "MCP server for authoring WinCC Unified HMI screens through TIA Portal Openness"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["pythonnet>=3.2", "mcp>=2.2", "pillow>=10"]
+
+[project.scripts]
+tia-hmi-mcp = "server:main"
+
+[tool.setuptools]
+# layout and render are imported by server.py at call time, so omitting them
+# builds a wheel whose tia_check_layout raises ModuleNotFoundError. pillow is
+# what render.py draws with.
+py-modules = ["server", "tia_openness", "layout", "render"]
